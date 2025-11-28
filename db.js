@@ -3,6 +3,20 @@ const mongoose = require("mongoose");
 const mongoDB =
   "mongodb+srv://kanu134:ieA4inkwk8deGCBl@cluster0.9sc3dbq.mongodb.net/todoSG"; //SG- stephenGrider
 
-const connection = mongoose.connect(mongoDB);
+// const connection = async () => {
+//   await mongoose.connect(mongoDB);
+// };
 
-export { connection };
+var connection;
+
+async function connectMongoDB() {
+  connection = await mongoose.connect(mongoDB);
+}
+
+try {
+  connectMongoDB();
+} catch (e) {
+  console.log(e);
+}
+
+module.exports = { connection };
