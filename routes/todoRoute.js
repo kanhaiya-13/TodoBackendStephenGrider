@@ -31,10 +31,28 @@ router.post("/add-todo", async (req, res) => {
   });
 });
 
+router.put("/update/:id", async (req, res) => {
+  const todo_id = req.params.id;
+  const { title, priority, due, status } = req.body;
+  const result = await todo.updateOne(
+    { _id: todo_id },
+    {
+      title,
+      priority,
+      due,
+      status,
+    }
+  );
+
+  return res.json({
+    result,
+  });
+});
+
 router.delete("/delete/:id", async (req, res) => {
   const todo_id = req.params.id;
   const result = await todo.deleteOne({ _id: todo_id });
 
-  return res.json({result});
+  return res.json({ result });
 });
 module.exports = router;

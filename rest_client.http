@@ -22,6 +22,16 @@ Content-Type: application/json
     "status":"completed"
 }
 
+###
+PUT {{BASE_URL}}/update/692a8b6a580e8662ff4df6f0
+Content-Type: application/json
+
+{
+    "title":"Updated Todo",
+    "priority":"High",
+    "due":"",
+    "status":"pending"
+}
 
 ###
 
