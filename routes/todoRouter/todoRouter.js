@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { todo } = require("../models/todo");
+const { todo } = require("../../models/todo");
 
 const router = express.Router();
 
