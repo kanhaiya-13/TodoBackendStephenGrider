@@ -3,6 +3,7 @@ const express = require("express");
 const route = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { tokenAuthorizer } = require("../../../middleware/tokenAuthorizer");
 require("dotenv").config();
 
 route.post("/sign-up", async (req, res) => {
@@ -32,7 +33,7 @@ route.get("/sign-in", async (req, res) => {
 
   if (!isMatch) return res.json({ mess: "Please enter Valid credentials" });
 
-  const payload = { username: user.email };
+  const payload = { username: user.email, user_id: user._id };
 
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: "15m",
@@ -40,6 +41,14 @@ route.get("/sign-in", async (req, res) => {
 
   return res.json({
     token,
+  });
+});
+
+route.get("/sign-in/verify", tokenAuthorizer, async (req, res) => {
+  const { user_id, username } = req.user;
+  return res.json({
+    user_id,
+    username,
   });
 });
 module.exports = route;

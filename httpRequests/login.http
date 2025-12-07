@@ -21,4 +21,16 @@ Content-Type: application/json
 
 ###
 
+GET {{BASE_URL}}/sign-in/verify
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthbmhhaXlhQDEyMyIsInVzZXJfaWQiOiI2OTM1NGI1OWRlZjdhNmE3ZDU0NWVjNWQiLCJpYXQiOjE3NjUxMDYzODEsImV4cCI6MTc2NTEwNzI4MX0.OwnR2jTDQzyUeUSurttaEe5Oufsj65fp7AedVQOEu8k
+
+{
+    "email":"kanhaiya@123",
+    "password":"123@12"
+}
+
+
+###
+
 GET {{BASE_URL}}/testing
