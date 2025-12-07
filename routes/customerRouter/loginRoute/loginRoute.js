@@ -11,6 +11,11 @@ route.post("/sign-up", async (req, res) => {
 
   const hasedPassword = await bcrypt.hash(password, 10);
 
+  const duplicate = await customer.findOne({ email: email });
+
+  if (duplicate)
+    return res.status(200).json({ message: "email arleady registered!!" });
+
   const newCustomer = new customer({
     email,
     hasedPassword,
