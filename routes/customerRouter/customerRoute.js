@@ -48,6 +48,9 @@ router.delete("/delete/:id", async (req, res) => {
 
 router.delete("/delete-all", async (req, res) => {
   const result = await customer.deleteMany();
+  return res.status(200).json({
+    result,
+  });
 });
 
 router.post("/:id", async (req, res) => {

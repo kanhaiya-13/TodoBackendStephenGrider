@@ -15,3 +15,7 @@ Content-Type: application/json
     "email":"ram@194",
     "hasedPassword":"kfjdkfjdj"
 }
+
+###
+
+DELETE {{BASE_URL}}/delete-all

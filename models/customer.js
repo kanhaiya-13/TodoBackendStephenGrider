@@ -9,6 +9,11 @@ const customerSchema = new Schema({
   hasedPassword: {
     type: String,
   },
+  role: {
+    type: String,
+    enum:["customer","admin"],
+    default:"customer"
+  }
 });
 
 const customer = mongoose.model("customer", customerSchema);

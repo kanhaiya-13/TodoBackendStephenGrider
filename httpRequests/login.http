@@ -4,8 +4,8 @@ POST {{BASE_URL}}/sign-up
 Content-Type: application/json
 
 {
-    "email":"kanhaiya@123",
-    "password":"123@12"
+    "email":"sumit@gmail.com",
+    "password":"123"
 }
 
 ###
@@ -14,8 +14,8 @@ GET {{BASE_URL}}/sign-in
 Content-Type: application/json
 
 {
-    "email":"kanhaiya@123",
-    "password":"123@12"
+    "email":"sumit@gmail.com",
+    "password":"123"
 }
 
 
