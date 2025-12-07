@@ -1,5 +1,5 @@
 @BASE_URL=http://localhost:3000/app/v1/customer
-@AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1bWl0QGdtYWlsLmNvbSIsInVzZXJfaWQiOiI2OTM1ODAwYzI5MjY2NjFhNzk1MzM4YWUiLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3NjUxMTUyNDUsImV4cCI6MTc2NTExNjE0NX0.2tUmwGrA9nxzw6WY-vHi9hSwr_vg1UKq9YwUsS9oKTE
+@AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImthbmhhaXlhQGdtYWlsLmNvbSIsInVzZXJfaWQiOiI2OTM1OTlhMmI3MzIzZWMwNWZkODA2NzkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjUxMjA0MzEsImV4cCI6MTc2NTEyMTMzMX0.YEufZ2HLDJJ0qG1OXho0pR9NSfF7uA9ivwNCpXOaS9Q
 GET {{BASE_URL}}/
 Authorization: Bearer {{AuthorizationToken}}
 
@@ -10,13 +10,12 @@ Authorization: Bearer {{AuthorizationToken}}
 
 ###
 
-PUT {{BASE_URL}}/update/6935800c2926661a795338ae
+PUT {{BASE_URL}}/update/6935998bb7323ec05fd80676
 Authorization: Bearer {{AuthorizationToken}}
 Content-Type: application/json
 
 {
-    "email": "sumit@gmail.com",
-    "hasedPassword":"123"
+    "password":"123"
 }
 
 ###

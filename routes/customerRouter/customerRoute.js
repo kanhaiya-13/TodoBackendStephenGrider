@@ -2,6 +2,8 @@ const { customer } = require("../../models/customer");
 const express = require("express");
 const loginRouter = require("./loginRoute/loginRoute");
 const { tokenAuthorizer } = require("../../middleware/tokenAuthorizer");
+require("dotenv").config();
+const bcrypt = require("bcrypt");
 
 const router = express.Router();
 router.use("/", loginRouter);
@@ -32,7 +34,12 @@ router.get("/:id", async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
   const customer_id = req.params.id;
-  const { email, hasedPassword } = req.body;
+  const { email, password } = req.body;
+
+  const hasedPassword = await bcrypt.hash(
+    password,
+    Number(process.env.BCRYPT_SALT)
+  );
   const result = await customer.updateOne(
     { _id: customer_id },
     {

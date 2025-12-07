@@ -7,7 +7,7 @@ const { tokenAuthorizer } = require("../../../middleware/tokenAuthorizer");
 require("dotenv").config();
 
 route.post("/sign-up", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   const hasedPassword = await bcrypt.hash(password, 10);
 
@@ -19,6 +19,7 @@ route.post("/sign-up", async (req, res) => {
   const newCustomer = new customer({
     email,
     hasedPassword,
+    role,
   });
   const result = await newCustomer.save();
 
