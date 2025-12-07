@@ -42,7 +42,7 @@ route.get("/sign-in", async (req, res) => {
   const payload = { username: user.email, user_id: user._id, role: user.role };
 
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "1hr",
   });
 
   return res.json({

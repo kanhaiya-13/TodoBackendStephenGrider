@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const { todo } = require("../../models/todo");
 const { tokenAuthorizer } = require("../../middleware/tokenAuthorizer");
+const { customer } = require("../../models/customer");
 
 const router = express.Router();
 
@@ -11,7 +12,15 @@ router.get("/todos", async (req, res) => {
   const role = req.user.role;
   if (role === "admin") {
     const response = await todo.find({});
-    return res.json({ response });
+    const size = await todo.aggregate([
+      {
+        $group: {
+          _id: null,
+          combined_object_size: { $sum: { $bsonSize: "$$ROOT" } },
+        },
+      },
+    ]);
+    return res.json({ response, size });
   } else {
     return res.status(401).json({
       message: "✖✖ Unauthorized Access ✖✖",
@@ -27,6 +36,7 @@ router.get("/todo/:id", async (req, res) => {
 
 router.post("/add-todo", async (req, res) => {
   const { title, priority, due, status } = req.body;
+  const { user_id, username, role } = req.user;
 
   const newTodo = new todo({
     title,
@@ -36,8 +46,22 @@ router.post("/add-todo", async (req, res) => {
   });
   const result = await newTodo.save();
 
+  const updateUser = await customer.updateOne(
+    { _id: user_id },
+    {
+      $push: {
+        todos: {
+          title,
+          priority,
+          due,
+          status,
+        },
+      },
+    }
+  );
   return res.json({
     result,
+    updateUser,
   });
 });
 

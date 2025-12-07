@@ -13,8 +13,17 @@ router.get("/", async (req, res) => {
   const role = req.user.role;
   if (role === "admin") {
     const result = await customer.find();
+    const size = await customer.aggregate([
+      {
+        $group: {
+          _id: null,
+          combined_object_size: { $sum: { $bsonSize: "$$ROOT" } },
+        },
+      },
+    ]);
     return res.json({
       result,
+      size,
     });
   } else {
     return res.status(401).json({
@@ -27,8 +36,18 @@ router.get("/:id", async (req, res) => {
   const customer_id = req.params.id;
   const result = await customer.findOne({ _id: customer_id });
 
+  const size = await customer.aggregate([
+    {
+      $project: {
+        name: 1,
+        object_size: { $bsonSize: "$$ROOT" },
+      },
+    },
+  ]);
+
   return res.json({
     result,
+    size,
   });
 });
 
