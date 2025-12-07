@@ -36,6 +36,11 @@ router.put("/update/:id", async (req, res) => {
   const customer_id = req.params.id;
   const { email, password } = req.body;
 
+  const duplicate = await customer.findOne({ email: email });
+
+  if (duplicate)
+    return res.status(400).json({ message: "email already exists ❗❗" });
+
   const hasedPassword = await bcrypt.hash(
     password,
     Number(process.env.BCRYPT_SALT)
