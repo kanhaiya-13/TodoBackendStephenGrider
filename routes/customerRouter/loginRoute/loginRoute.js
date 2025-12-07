@@ -24,14 +24,13 @@ route.post("/sign-up", async (req, res) => {
 route.get("/sign-in", async (req, res) => {
   const { email, password } = req.body;
 
-  const hasedPassword = await bcrypt.hash(password, 10);
-
   const user = await customer.findOne({ email: email });
 
   if (user == null) return res.json({ mess: "Please enter valid credentials" });
 
-  if (hasedPassword != user.hasedPassword)
-    return res.json({ mess: "Please enter Valid credentials" });
+  const isMatch = bcrypt.compare(password, user.hasedPassword);
+
+  if (!isMatch) return res.json({ mess: "Please enter Valid credentials" });
 
   const payload = { username: user.email };
 
@@ -40,7 +39,7 @@ route.get("/sign-in", async (req, res) => {
   });
 
   return res.json({
-    token: "dkfjdjf",
+    token,
   });
 });
 module.exports = route;
