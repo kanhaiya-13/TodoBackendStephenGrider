@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { todoSchema } = require("./todo");
 
 const Schema = mongoose.Schema;
 
@@ -14,25 +15,7 @@ const customerSchema = new Schema({
     enum: ["customer", "admin"],
     default: "customer",
   },
-  todos: (todoArray = [
-    {
-      title: String,
-      priority: {
-        type: String,
-        enum: ["High", "Medium", "Low"],
-        default: "Medium",
-      },
-      due_time: {
-        type: Date,
-        required: false,
-      },
-      status: {
-        type: String,
-        enum: ["completed", "pending"],
-        default: "pending",
-      },
-    },
-  ]),
+  todos: [todoSchema],
 });
 
 const customer = mongoose.model("customer", customerSchema);
