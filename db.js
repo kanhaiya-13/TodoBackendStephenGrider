@@ -10,14 +10,15 @@ const mongoDB =
 var connection;
 
 async function connectMongoDB() {
-  connection = await mongoose.connect(mongoDB);
-  console.log("Connected to Database!!");
+  try {
+    connection = mongoose.connect(mongoDB);
+    console.log("Connected to Database!!");
+  } catch (e) {
+    console.log("Connection to Database failed ❌");
+    console.log("Check Internet connection ❓");
+    console.log(e);
+  }
 }
-
-try {
-  connectMongoDB();
-} catch (e) {
-  console.log(e);
-}
+connectMongoDB();
 
 module.exports = { connection };

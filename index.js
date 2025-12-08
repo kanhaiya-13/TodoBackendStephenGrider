@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const routers = require("./routes/routers");
 
 app.use(bodyParser.json());
-
+// console.log(connection);
 app.get("/app/v1", (req, res) => {
   return res.json({ message: "everything working fine" });
 });
