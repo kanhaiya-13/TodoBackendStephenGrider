@@ -30,8 +30,13 @@ router.get("/todos", async (req, res) => {
 
 router.get("/todo/:id", async (req, res) => {
   const todo_id = req.params.id;
+  const user = req.user;
   const result = await todo.findOne({ _id: todo_id });
-  return res.json({ result });
+  const response = await customer.findOne({
+    _id: user.user_id,
+  });
+  const requiredTodo = response.todos.find((todo) => todo._id == todo_id);
+  return res.json({ result, requiredTodo });
 });
 
 router.post("/add-todo", async (req, res) => {
@@ -59,9 +64,12 @@ router.post("/add-todo", async (req, res) => {
       },
     }
   );
+
+  const user = await customer.findOne({ _id: user_id });
   return res.json({
     result,
     updateUser,
+    user,
   });
 });
 
