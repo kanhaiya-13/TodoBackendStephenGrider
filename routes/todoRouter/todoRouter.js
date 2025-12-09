@@ -92,21 +92,28 @@ router.post("/add-todo", async (req, res) => {
 });
 
 router.put("/update/:id", async (req, res) => {
-  const todo_id = req.params.id;
-  const { title, priority, due, status } = req.body;
-  const result = await todo.updateOne(
-    { _id: todo_id },
-    {
-      title,
-      priority,
-      due,
-      status,
-    }
-  );
+  try {
+    const todo_id = req.params.id;
+    const { title, priority, due, status } = req.body;
+    const result = await todo.updateOne(
+      { _id: todo_id },
+      {
+        title,
+        priority,
+        due,
+        status,
+      }
+    );
 
-  return res.json({
-    result,
-  });
+    return res.json({
+      result,
+    });
+  } catch (err) {
+    return res.json({
+      message: "error updating given todo",
+      desc: err,
+    });
+  }
 });
 
 router.delete("/delete/:id", async (req, res) => {
